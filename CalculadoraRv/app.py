@@ -23,11 +23,16 @@ st.subheader("Centro de Cotizaciones y Generador de Informes")
 
 # --- Nombres de archivos Excel ---
 
+import os
+
+# --- Nombres de archivos Excel (PATH ABSOLUTO V35.0) ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Pilar 2: Tablas de Mortalidad (4 tablas)
-ARCHIVO_H_VEJEZ = 'CB-H-2020.xlsx'
-ARCHIVO_M_VEJEZ = 'B-M-2020.xlsx'
-ARCHIVO_H_INV = 'I-H-2020.xlsx'
-ARCHIVO_M_INV = 'I-M-2020.xlsx'
+ARCHIVO_H_VEJEZ = os.path.join(BASE_DIR, 'CB-H-2020.xlsx')
+ARCHIVO_M_VEJEZ = os.path.join(BASE_DIR, 'B-M-2020.xlsx')
+ARCHIVO_H_INV = os.path.join(BASE_DIR, 'I-H-2020.xlsx')
+ARCHIVO_M_INV = os.path.join(BASE_DIR, 'I-M-2020.xlsx')
 
 TABLAS_DE_MORTALIDAD_REALES = cargar_tablas_de_mortalidad_reales(
     ARCHIVO_H_VEJEZ, ARCHIVO_M_VEJEZ, ARCHIVO_H_INV, ARCHIVO_M_INV
@@ -37,7 +42,7 @@ if not TABLAS_DE_MORTALIDAD_REALES:
     st.stop()
 
 # --- INICIO PILAR 1 (VTD) V28.0 ---
-ARCHIVO_ETTI = 'VTD 2020-2025.xlsx' 
+ARCHIVO_ETTI = os.path.join(BASE_DIR, 'VTD 2020-2025.xlsx')
 
 HOJA_VTD = 'SR 2025' 
 COL_MES_VTD = 'oct-25'
@@ -57,7 +62,7 @@ else:
 # --- FIN PILAR 1 V28.0 ---
 
 # --- INICIO CARGA V30.0 (TASAS DE VENTA) ---
-ARCHIVO_TASAS_VENTA = 'svtas_rv.xlsx'
+ARCHIVO_TASAS_VENTA = os.path.join(BASE_DIR, 'svtas_rv.xlsx')
 DF_TASAS_VENTA = cargar_tasas_de_venta(ARCHIVO_TASAS_VENTA)
 if DF_TASAS_VENTA is None:
     st.error("Falla crítica: No se pudo cargar el archivo de Tasas de Venta (svtas_rv.xlsx).")
